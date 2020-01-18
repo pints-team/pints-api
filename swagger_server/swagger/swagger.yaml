@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: PINTS problem benchmark
+  description: |
+    A set of likelihood evaluations from real problems in electrochemistry, cardiac electrophysiology, (others?), for testing new inference techniques
+  contact:
+    email: martin.robinson@cs.ox.ac.uk
+  license:
+    name: BSD 3-Clause
+    url: https://opensource.org/licenses/BSD-3-Clause
+  version: 1.0.0-oas3
+externalDocs:
+  description: Find out more about PINTS
+  url: https://pints.readthedocs.io
+servers:
+- url: https://virtserver.swaggerhub.com/pints-team/pints2/1.0.0
+  description: SwaggerHub API Auto Mocking
+- url: https://petstore.swagger.io/v2
+tags:
+- name: logistic-model
+  description: logistic model and simulated dataset with additive gaussian noise
+  externalDocs:
+    description: Find out more
+    url: https://pints.readthedocs.io
+paths:
+  /logistic-model:
+    get:
+      tags:
+      - logistic-model
+      summary: Evaluates this log-likelihood
+      description: "Returns the natural logarithm of the likelihood for this problem.\
+        \ \nThe size of the parameter ``x`` is given by /n_parameters`.\n"
+      operationId: logistic_model
+      parameters:
+      - name: x
+        in: query
+        description: Parameter value at which to calculate likelihood
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: number
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: number
+        "400":
+          description: Invalid x value
+      x-openapi-router-controller: swagger_server.controllers.logistic_model_controller
+  /logistic-model/n_parameters:
+    get:
+      tags:
+      - logistic-model
+      summary: Returns the dimension of the space
+      description: Returns the dimension of the space
+      operationId: logistic_model_n_parameters
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: integer
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: integer
+      x-openapi-router-controller: swagger_server.controllers.logistic_model_controller
+  /logistic-model/evaluateS1:
+    get:
+      tags:
+      - logistic-model
+      summary: Evaluates this log-likelihood with derivatives
+      description: |
+        Returns the result plus the partial derivatives of the result with respect to the parameters.
+        The returned data is an 2D array of parameter arrays [L, L'] where L is a scalar value and L' is a sequence of length n_parameters.
+        Note that the derivative returned is of the log-pdf, so L' = d/dp log(f(p)), evaluated at p=x.
+      operationId: logistic_model_evaluate_s1
+      parameters:
+      - name: x
+        in: query
+        description: Parameter at which to calculate log pdf
+        required: true
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            type: number
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: number
+                x-content-type: application/json
+            application/xml:
+              schema:
+                type: number
+        "400":
+          description: Invalid x value
+      x-openapi-router-controller: swagger_server.controllers.logistic_model_controller
+components: {}
+
