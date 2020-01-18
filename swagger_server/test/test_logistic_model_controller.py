@@ -16,7 +16,11 @@ class TestLogisticModelController(BaseTestCase):
 
         Evaluates this log-likelihood
         """
-        query_string = [('x', 3.4)]
+        response = self.client.open(
+            '/pints-team/pints2/1.0.0/logistic-model/n_parameters',
+            method='GET')
+        n_parameters = int(response.get_data())
+        query_string = [('x', i) for i in range(1,n_parameters+1)]
         response = self.client.open(
             '/pints-team/pints2/1.0.0/logistic-model',
             method='GET',
@@ -29,7 +33,11 @@ class TestLogisticModelController(BaseTestCase):
 
         Evaluates this log-likelihood with derivatives
         """
-        query_string = [('x', 3.4)]
+        response = self.client.open(
+            '/pints-team/pints2/1.0.0/logistic-model/n_parameters',
+            method='GET')
+        n_parameters = int(response.get_data())
+        query_string = [('x', i) for i in range(1,n_parameters+1)]
         response = self.client.open(
             '/pints-team/pints2/1.0.0/logistic-model/evaluateS1',
             method='GET',
