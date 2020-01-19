@@ -3,3 +3,4 @@ python_dateutil == 2.6.0
 setuptools >= 21.0.0
 git+git://github.com/pints-team/pints@master#egg=pints
 gunicorn
+connexion[swagger-ui]
