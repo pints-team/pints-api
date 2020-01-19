@@ -28,8 +28,9 @@ paths:
       tags:
       - logistic-model
       summary: Evaluates this log-likelihood
-      description: "Returns the natural logarithm of the likelihood for this problem.\
-        \ \nThe size of the parameter ``x`` is given by /n_parameters`.\n"
+      description: |
+        Returns the natural logarithm of the likelihood L for this problem. The size of the parameter 
+        ``x`` is given by /n_parameters`.
       operationId: logistic_model
       parameters:
       - name: x
@@ -82,8 +83,9 @@ paths:
       summary: Evaluates this log-likelihood with derivatives
       description: |
         Returns the result plus the partial derivatives of the result with respect to the parameters.
-        The returned data is an array of length n_parameters+1 where the first element is L, [L, L'] where L is a scalar value and L' is a sequence of length n_parameters.
-        Note that the derivative returned is of the log-pdf, so L' = d/dp log(f(p)), evaluated at p=x.
+        The returned data is an array of length n_parameters+1 of the form [L, dL/dp_1, dL/dp_2, ...], 
+        where L is the log-likelihood and dL/dp_1 is the derivative of the log-likelihood with respect
+        to p_1, the first parameter.
       operationId: logistic_model_evaluate_s1
       parameters:
       - name: x

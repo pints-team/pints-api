@@ -28,7 +28,8 @@ log_likelihood = pints.GaussianLogLikelihood(problem)
 def logistic_model(x):  # noqa: E501
     """Evaluates this log-likelihood
 
-    Returns the natural logarithm of the likelihood for this problem.  The size of the parameter &#x60;&#x60;x&#x60;&#x60; is given by /n_parameters&#x60;.  # noqa: E501
+    Returns the natural logarithm of the likelihood L for this problem. The size of the parameter
+    ``x`` is given by /n_parameters`.
 
     :param x: Parameter value at which to calculate likelihood
     :type x: List[float]
@@ -42,7 +43,10 @@ def logistic_model(x):  # noqa: E501
 def logistic_model_evaluate_s1(x):  # noqa: E501
     """Evaluates this log-likelihood with derivatives
 
-    Returns the result plus the partial derivatives of the result with respect to the parameters. The returned data is an 2D array of parameter arrays [L, L&#x27;] where L is a scalar value and L&#x27; is a sequence of length n_parameters. Note that the derivative returned is of the log-pdf, so L&#x27; &#x3D; d/dp log(f(p)), evaluated at p&#x3D;x.  # noqa: E501
+    Returns the result plus the partial derivatives of the result with respect to the parameters.
+    The returned data is an array of length n_parameters+1 of the form [L, dL/dp_1, dL/dp_2, ...],
+    where L is the log-likelihood and dL/dp_1 is the derivative of the log-likelihood with respect
+    to p_1, the first parameter.
 
     :param x: Parameter at which to calculate log pdf
     :type x: List[float]
@@ -50,7 +54,8 @@ def logistic_model_evaluate_s1(x):  # noqa: E501
     :rtype: float
     """
     print('called logistic_model_evaluate_s1 with',x)
-    return log_likelihood.evaluateS1(x)
+    L, dLdp = log_likelihood.evaluateS1(x)
+    return [L] + dLdp.tolist()
 
 
 def logistic_model_n_parameters():  # noqa: E501
