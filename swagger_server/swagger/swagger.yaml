@@ -13,9 +13,8 @@ externalDocs:
   description: Find out more about PINTS
   url: https://pints.readthedocs.io
 servers:
-- url: https://virtserver.swaggerhub.com/pints-team/pints2/1.0.0
-  description: SwaggerHub API Auto Mocking
-- url: https://petstore.swagger.io/v2
+- url: https://mighty-badlands-12664.herokuapp.com/pints-team/benchmarks/1.0.0
+  description: test heroku server
 tags:
 - name: logistic-model
   description: logistic model and simulated dataset with additive gaussian noise
